@@ -17,9 +17,67 @@
       vertical-align: baseline;
       z-index: -2;
     }
+    body {
+        background-color: #000;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      svg {
+        width: 90%;
+        height: 90%;
+        visibility: hidden;
+      }
+
+      .sparkle {
+        /* mix-blend-mode:luminosity */
+      }
+
+      body {
+        margin: 0;
+
+        text-align: center;
+        padding: 0;
+
+        line-height: 2em;
+
+        font-family: "Times New Roman", Times, serif;
+
+        color: #000000;
+      }
+
+      #header {
+        /* position: absolute; */
+            text-align: center;
+            color: #C89568;
+            font-family: Times New Roman;
+            font-size: 35px;
+            min-width: 400px;
+            max-height: 100vh;
+      }
+      .header-item {
+        opacity: 0;
+        transition: all .5s ease-in-out;
+        line-height: 1.5;
+        margin: 0;
+      }
+      .header-item.show {
+        opacity: 1;
+      }
   </style>
   <body>
     <canvas id="canvas" class="canvas"></canvas>
+    <h1 id="header"></h1>
   </body>
   <script>
     drawStars();
@@ -29,7 +87,7 @@
         ctx = canvas.getContext("2d"),
         w = (canvas.width = window.innerWidth),
         h = (canvas.height = window.innerHeight),
-        hue = 217, //色调色彩
+        hue = 37, //色调色彩
         stars = [], //保存所有星星
         count = 0, //用于计算星星
         maxStars = 1300; //星星数量
@@ -49,8 +107,8 @@
       //h->hue,代表色调色彩，0为red，120为green，240为blue
       //s->saturation，代表饱和度，0%-100%
       //l->lightness，代表亮度，0%为black，100%位white
-      gradient2.addColorStop(0.1, "hsl(" + hue + ", 61%, 33%)");
-      gradient2.addColorStop(0.25, "hsl(" + hue + ", 64%, 6%)");
+      gradient2.addColorStop(0.1, "hsl(" + hue + ", 61%, 10%)");
+      gradient2.addColorStop(0.25, "hsl(" + hue + ", 64%, 2%)");
       gradient2.addColorStop(1, "transparent");
 
       ctx2.fillStyle = gradient2;
@@ -157,6 +215,30 @@
 
       animation();
     }
+    let myLabels = [
+      "憨宝",
+      "200天快乐",
+      "这是一张愿望卡",
+      "可以让哆啦实现一个愿望",
+    ];
+    
+    function init() {
+      let element = document.getElementById("header");
+      for(let i = 0; i < myLabels.length; i++) {
+        let _p = document.createElement("p");
+        _p.className = "header-item";
+        _p.innerHTML = myLabels[i];
+        element.appendChild(_p);
+      }
+
+      let labels = document.getElementsByClassName('header-item');
+      for(let i = 0; i < myLabels.length; i++) {
+        setTimeout(() => {
+          labels[i].classList.add("show");
+        }, 1000 * i);
+      }      
+    }
+    init();
 
     // 
   </script>
